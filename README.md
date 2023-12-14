@@ -1,6 +1,6 @@
 # BudgetBuddy | GOFR
 
-An expense tracker for you to keep track of your expenditure and be resourceful of your budget!
+An expense tracker for you to keep track of your expenditure and be resourceful of your budget built using GOFR "An Opinionated Go Framework"
 
 ## Table of Contents
 
@@ -19,6 +19,7 @@ Welcome to BudgetBuddy, your go-to application for managing and tracking your ex
 ### Prerequisites
 
 - [Go](https://golang.org/) (Programming Language)
+- [GoFr](https://gofr.dev/) (Framework)
 - [MySQL](https://www.mysql.com/) (or any preferred database)
 - [Git](https://git-scm.com/) (Version Control System)
 
