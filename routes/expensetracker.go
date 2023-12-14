@@ -22,7 +22,6 @@ func main() {
 
 	//post a new expense
 	app.POST("/addExpense", func(ctx *gofr.Context) (interface{}, error) {
-		id := ctx.PathParam("id")
 
 		// Read JSON data from the request body
 		var requestPayload struct {
@@ -33,7 +32,7 @@ func main() {
 		// Insert data into the 'expenses' table
 		_, err := ctx.DB().ExecContext(ctx, "INSERT INTO expenses (description, amount) VALUES (?, ?)", requestPayload.Description, requestPayload.Amount)
 
-		return id, err
+		return "added successfully", err
 	})
 
 	//get all expenses
@@ -46,7 +45,7 @@ func main() {
 		}
 		for rows.Next() {
 			var expense Expense
-			if err := rows.Scan(&expense.ID, &expense.Description, &expense.Amount, &expense.Date); err != nil {
+			if err := rows.Scan(&expense.ID, &expense.Description, &expense.Amount); err != nil {
 				return nil, err
 			}
 
@@ -90,6 +89,30 @@ func main() {
 		}
 
 		return "Expense deleted successfully", nil
+	})
+
+	app.GET("/totalAmount", func(ctx *gofr.Context) (interface{}, error) {
+		var totalAmount float64
+
+		rows, err := ctx.DB().QueryContext(ctx, "SELECT amount FROM expenses")
+		if err != nil {
+			return nil, err
+		}
+		defer rows.Close()
+
+		for rows.Next() {
+			var amount float64
+			if err := rows.Scan(&amount); err != nil {
+				return nil, err
+			}
+			totalAmount += amount
+		}
+
+		if err := rows.Err(); err != nil {
+			return nil, err
+		}
+
+		return totalAmount, nil
 	})
 
 	app.Start()
