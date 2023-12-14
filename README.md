@@ -27,6 +27,6 @@ Welcome to BudgetBuddy, your go-to application for managing and tracking your ex
 
 step-by-step instructions on how to install and set up .
 
-git clone https://github.com/yashdy03/zopsmart-crud
-cd routes
-go run expensetracker.go
+- git clone https://github.com/yashdy03/zopsmart-crud
+- cd routes
+- go run expensetracker.go
