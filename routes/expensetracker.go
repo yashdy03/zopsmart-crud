@@ -37,7 +37,7 @@ func main() {
 		// Insert data into the 'expenses' table
 		_, err := ctx.DB().ExecContext(ctx, "INSERT INTO expenses (description, amount) VALUES (?, ?)", requestPayload.Description, requestPayload.Amount)
 
-		return "added successfully", err
+		return requestPayload, err
 	})
 
 	//get all expenses
@@ -58,6 +58,21 @@ func main() {
 		}
 
 		return expenses, nil
+	})
+
+	app.GET("/getExpense/{id}", func(ctx *gofr.Context) (interface{}, error) {
+		// Extract expense ID from the URL parameters
+		id := ctx.PathParam("id")
+
+		// Query the database to get the specific expense
+		row := ctx.DB().QueryRowContext(ctx, "SELECT * FROM expenses WHERE id=?", id)
+
+		var expense Expense
+		if err := row.Scan(&expense.ID, &expense.Description, &expense.Amount); err != nil {
+			return nil, err
+		}
+
+		return expense, nil
 	})
 
 	app.PUT("/putExpense/{id}", func(ctx *gofr.Context) (interface{}, error) {
@@ -86,7 +101,7 @@ func main() {
 			return nil, err
 		}
 
-		return "Expense deleted successfully", nil
+		return "deleted expense successfully", nil
 	})
 
 	app.GET("/totalAmount", func(ctx *gofr.Context) (interface{}, error) {
