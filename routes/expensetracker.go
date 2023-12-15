@@ -1,7 +1,7 @@
 package main
 
 import (
-	"strconv"
+	"encoding/json"
 
 	"gofr.dev/pkg/gofr"
 )
@@ -20,15 +20,20 @@ func main() {
 		return "Hello World!", nil
 	})
 
+	type RequestPayload struct {
+		Description string  `json:"description"`
+		Amount      float64 `json:"amount"`
+	}
+
 	//post a new expense
 	app.POST("/addExpense", func(ctx *gofr.Context) (interface{}, error) {
 
 		// Read JSON data from the request body
-		var requestPayload struct {
-			Description string  `json:"description"`
-			Amount      float64 `json:"amount"`
-		}
+		var requestPayload RequestPayload
 
+		if err := json.NewDecoder(ctx.Request().Body).Decode(&requestPayload); err != nil {
+			return nil, err
+		}
 		// Insert data into the 'expenses' table
 		_, err := ctx.DB().ExecContext(ctx, "INSERT INTO expenses (description, amount) VALUES (?, ?)", requestPayload.Description, requestPayload.Amount)
 
@@ -56,26 +61,19 @@ func main() {
 	})
 
 	app.PUT("/putExpense/{id}", func(ctx *gofr.Context) (interface{}, error) {
-		// Extract the expense ID from the URL parameters
-		expenseID := ctx.PathParam("id")
-
-		// Parse the expenseID to an integer (assuming it's an integer)
-		id, err := strconv.Atoi(expenseID)
-		if err != nil {
+		var requestPayload RequestPayload
+		if err := json.NewDecoder(ctx.Request().Body).Decode(&requestPayload); err != nil {
 			return nil, err
 		}
 
 		// Fetch the updated expense data from the request body (assuming JSON)
-		var updatedExpense Expense
+		expenseID := ctx.Param("id")
 
-		// Perform the update in the database
-		_, err = ctx.DB().ExecContext(ctx, "UPDATE expenses SET description=?, amount=? WHERE id=?", updatedExpense.Description, updatedExpense.Amount, id)
-		if err != nil {
-			return nil, err
-		}
+		// Update data in the 'expenses' table
+		_, err := ctx.DB().ExecContext(ctx, "UPDATE expenses SET description = ?, amount = ? WHERE id = ?", requestPayload.Description, requestPayload.Amount, expenseID)
 
 		// Return a success message or updated expense data
-		return "Expense updated successfully", nil
+		return "Expense updated successfully", err
 	})
 
 	app.DELETE("/delExpense/{id}", func(ctx *gofr.Context) (interface{}, error) {
