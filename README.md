@@ -45,6 +45,15 @@ step-by-step instructions on how to install and set up .
 
 - Visit the "Update Expense" route to modify details of a specific expense using its id.
 
+### Get an Expense by ID:
+
+- Visit the "Get Expense / {id}" route to display a specific expense using its id.
+
+### Delete an Expense:
+
+- Visit the "Delete Expense /{id}" route to delete a specific expense from databse using its id.
+
+
 ## Postman Screenshots
 
 ### Add Expense:
