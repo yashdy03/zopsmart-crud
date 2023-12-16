@@ -53,21 +53,31 @@ step-by-step instructions on how to install and set up .
 2. Provide the {"description":"amount"} in the request body.
 3. Send the request.
 
-   ![Add Expense](screenshots/postman_add_expense.png)
+   ![Add Expense](https://i.imgur.com/jnO483b.png)
+   ![Show added Expense](https://i.imgur.com/szTSHjE.png)
 
 ### Delete Expense:
 
 1. Open Postman and set up a `DELETE` request to the "deleteExpense/{id}" endpoint.
 2. Send the request.
 
-   ![Add Expense](screenshots/postman_add_expense.png)
+   ![Delete Expense](https://i.imgur.com/PtKJfbY.png)
+   ![Delete Expense](https://i.imgur.com/noNKPEG.png)
+
 
 ### View All Expenses:
 
 1. Set up a `GET` request to your "/allExpenses" endpoint.
 2. Send the request.
 
-   ![View Expenses](screenshots/postman_view_expenses.png)
+   ![View Expenses](https://i.imgur.com/VObkuIO.png)
+
+### Get Expense By ID:
+
+1. Set up a `GET` request to your "/getExpense/{id}" endpoint.
+2. Send the request.
+
+   ![Get Expense](https://i.imgur.com/sn2DibW.png)
 
 ### Update an Expense:
 
@@ -75,14 +85,14 @@ step-by-step instructions on how to install and set up .
 2. Adjust the request body with the updated details.
 3. Send the request.
 
-   ![Update Expense](screenshots/postman_update_expense.png)
+   ![Update Expense](https://i.imgur.com/Injm1RG.png)
 
 ### Calculate Total Amount:
 
 1. Create a `GET` request to your "/totalAmount" endpoint.
 2. Send the request.
 
-   ![Total Amount](screenshots/postman_total_amount.png)
+   ![Total Amount](https://i.imgur.com/5TgBMVz.png)
 
 
 
