@@ -54,6 +54,11 @@ step-by-step instructions on how to install and set up .
 - Visit the "Delete Expense /{id}" route to delete a specific expense from databse using its id.
 
 
+##Use Case Diagram
+
+![image](https://github.com/yashdy03/zopsmart-crud/assets/78272804/0f4e593c-74ba-47cf-b60e-c32a356f42b7)
+
+
 ## Postman Screenshots
 
 ### Add Expense:
